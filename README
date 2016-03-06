@@ -30,27 +30,43 @@ Install stuff:
 
 pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager network-manager-applet htop zsg grml-zsh-config
 
+Put into fstab some stuff: 
+
 genfstab -U /mnt >> /mnt/etc/fstab 
+
+Chroot into stuff:
 
 arch-chroot /mnt /bin/zsh
 
-passwd
+Install bootloader stuff: 
 
 refind-install 
+
+Shells, users, permissions, all that stuff:
+
+passwd
 
 chsh /bin/zsh
 
 useradd -m -G wheel -s /bin/zsh user
 passwd user
 
+Hostname stuff:
+
 echo arch > /etc/hostname
+
+Locale stuff: 
 
 echo en_US.UTF-8 > /etc/locale.gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
+Enable some stuff:
+
 systemctl enable NetworkManager
 systemctl enable gdm
+
+Get out to actually do stuff:
 
 exit
 reboot
