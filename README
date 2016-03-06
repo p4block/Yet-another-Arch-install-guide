@@ -1,0 +1,57 @@
+Let's start.
+
+This assumes your target disk is /dev/sda, you are running UEFI, you want rEFInd because it's cool, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
+
+Create partitions:
+
+cgdisk /dev/sda
+
+	/dev/sda1 /boot 100M
+	/dev/sda2 /     20G
+	/dev/sda3 swap  "Amount of Ram" 
+	/dev/sda4 /home "Remaining space" 
+
+Format stuff: 
+
+mkfs.vfat -F 32 /dev/sda1
+mkfs.ext4 /dev/sda2
+mkwap /dev/sda3
+mkfs.ext4 /dev/sda4
+
+Mount stuff: 
+
+mount /dev/sda2 /mnt
+mkdir /mnt/boot
+mkdir /mnt/home
+mount /dev/sda1 /mnt/boot
+mount /dev/sda4 /mnt/home
+
+Install stuff: 
+
+pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager network-manager-applet htop zsg grml-zsh-config
+
+genfstab -U /mnt >> /mnt/etc/fstab 
+
+arch-chroot /mnt /bin/zsh
+
+passwd
+
+refind-install 
+
+chsh /bin/zsh
+
+useradd -m -G wheel -s /bin/zsh user
+passwd user
+
+echo arch > /etc/hostname
+
+echo en_US.UTF-8 > /etc/locale.gen
+echo LANG=en_US.UTF-8 > /etc/locale.conf
+ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+
+systemctl enable NetworkManager
+systemctl enable gdm
+
+exit
+reboot
+
