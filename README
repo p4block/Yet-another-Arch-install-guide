@@ -28,7 +28,7 @@ mount /dev/sda4 /mnt/home
 
 Install stuff: 
 
-pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager network-manager-applet htop zsg grml-zsh-config
+pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager network-manager-applet htop zsh grml-zsh-config
 
 Put into fstab some stuff: 
 
