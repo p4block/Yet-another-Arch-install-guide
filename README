@@ -6,10 +6,10 @@ Create partitions:
 
 cgdisk /dev/sda
 
-	/dev/sda1 /boot 100M
+	/dev/sda1 /boot 200M (OS X needs 200MB)
 	/dev/sda2 /     20G
-	/dev/sda3 swap  "Amount of Ram" 
-	/dev/sda4 /home "Remaining space" 
+	/dev/sda3 swap  $RAM_AMOUNT 
+	/dev/sda4 /home $REMAINING_SPACE
 
 Format stuff: 
 
@@ -28,7 +28,7 @@ mount /dev/sda4 /mnt/home
 
 Install stuff: 
 
-pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager network-manager-applet htop zsh grml-zsh-config
+pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager htop zsh grml-zsh-config
 
 Put into fstab some stuff: 
 
@@ -46,7 +46,7 @@ Shells, users, permissions, all that stuff:
 
 passwd
 
-chsh /bin/zsh
+chsh root -s /bin/zsh
 
 useradd -m -G wheel -s /bin/zsh user
 passwd user
