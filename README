@@ -2,7 +2,7 @@ Let's start.
 
 This assumes your target disk is /dev/sda, you are running UEFI, you want rEFInd because it's cool, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
 
-Create partitions:
+------- Partitioning
 
 cgdisk /dev/sda
 
@@ -11,14 +11,10 @@ cgdisk /dev/sda
 	/dev/sda3 swap  $RAM_AMOUNT 
 	/dev/sda4 /home $REMAINING_SPACE
 
-Format stuff: 
-
 mkfs.vfat -F 32 /dev/sda1
 mkfs.ext4 /dev/sda2
 mkwap /dev/sda3
 mkfs.ext4 /dev/sda4
-
-Mount stuff: 
 
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
@@ -26,47 +22,43 @@ mkdir /mnt/home
 mount /dev/sda1 /mnt/boot
 mount /dev/sda4 /mnt/home
 
-Install stuff: 
+------- Actual install
+
+Install all packages needed (add what you need!)
 
 pacstrap -i /mnt base base-devel refind-efi xorg-server xfce4 lightdm lightdm-gtk-greeter firefox networkmanager htop zsh grml-zsh-config
 
-Put into fstab some stuff: 
-
 genfstab -U /mnt >> /mnt/etc/fstab 
 
-Chroot into stuff:
+
+------- Get in there to configure
 
 arch-chroot /mnt /bin/zsh
-
-Install bootloader stuff: 
-
-refind-install 
-
-Shells, users, permissions, all that stuff:
-
-passwd
-
-chsh root -s /bin/zsh
-
-useradd -m -G wheel -s /bin/zsh user
-passwd user
-
-Hostname stuff:
-
-echo arch > /etc/hostname
-
-Locale stuff: 
 
 echo en_US.UTF-8 > /etc/locale.gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
 ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
 
-Enable some stuff:
+echo arch > /etc/hostname
+
+------- Users
+
+passwd
+chsh root -s /bin/zsh
+
+useradd -m -G wheel -s /bin/zsh user
+passwd user
+
+------- Enable services
 
 systemctl enable NetworkManager
 systemctl enable gdm
 
-Get out to actually do stuff:
+------- Bootloader
+
+refind-install 
+
+------- Git out
 
 exit
 reboot
