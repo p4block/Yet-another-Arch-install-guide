@@ -1,4 +1,4 @@
-Let's start.
+Let's start. 
 
 This assumes your target disk is /dev/sda, you are running UEFI, you want rEFInd because it's cool, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
 
@@ -28,7 +28,7 @@ mount /dev/sda4 /mnt/home
 
 Install stuff: 
 
-pacstrap -i /mnt base base-devel refind-efi xorg-server xf86-video-intel xf86-video-nouveau xf86-video-ati xf86-video-amdgpu gnome gdm firefox networkmanager htop zsh grml-zsh-config
+pacstrap -i /mnt base base-devel refind-efi xorg-server xfce4 lightdm lightdm-gtk-greeter firefox networkmanager htop zsh grml-zsh-config
 
 Put into fstab some stuff: 
 
