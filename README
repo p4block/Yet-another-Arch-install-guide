@@ -52,7 +52,7 @@ passwd user
 ------- Enable services
 
 systemctl enable NetworkManager
-systemctl enable gdm
+systemctl enable lightdm
 
 ------- Bootloader
 
