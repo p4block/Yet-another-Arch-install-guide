@@ -26,7 +26,7 @@ mount /dev/sda4 /mnt/home
 
 Install all packages needed (add what you need!)
 
-pacstrap -i /mnt base base-devel refind-efi xorg-server xfce4 lightdm lightdm-gtk-greeter firefox networkmanager htop zsh grml-zsh-config
+pacstrap -i /mnt base base-devel refind-efi xorg-server gnome gnome-extra firefox networkmanager htop zsh grml-zsh-config
 
 genfstab -U /mnt >> /mnt/etc/fstab 
 
@@ -52,7 +52,7 @@ passwd user
 ------- Enable services
 
 systemctl enable NetworkManager
-systemctl enable lightdm
+systemctl enable gdm
 
 ------- Bootloader
 
