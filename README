@@ -6,8 +6,8 @@ This assumes your target disk is /dev/sda, you are running UEFI, you want rEFInd
 
 cgdisk /dev/sda
 
-	/dev/sda1 /boot 200M (OS X needs 200MB)
-	/dev/sda2 /     20G
+	/dev/sda1 /boot 100M
+	/dev/sda2 /     $REST_OF_HDD
 
 mkfs.vfat -F 32 /dev/sda1
 mkfs.ext4 /dev/sda2
@@ -17,13 +17,11 @@ mkdir /mnt/boot
 mount /dev/sda1 /mnt/boot
 
 ------- Actual install
-
 Install all packages needed (add what you need!)
 
 pacstrap -i /mnt base base-devel refind-efi xorg-server gnome gnome-extra firefox networkmanager htop zsh grml-zsh-config
 
 genfstab -U /mnt >> /mnt/etc/fstab 
-
 
 ------- Get in there to configure
 
@@ -51,6 +49,11 @@ systemctl enable gdm
 ------- Bootloader
 
 refind-install 
+
+------- Kernel cmdline
+Basically edit your boot options to be 'root=/dev/sda2', as sometimes rEFInd doesn't make this automatically
+
+nano /boot/refind_linux.conf 
 
 ------- Git out
 
