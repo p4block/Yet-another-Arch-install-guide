@@ -8,19 +8,13 @@ cgdisk /dev/sda
 
 	/dev/sda1 /boot 200M (OS X needs 200MB)
 	/dev/sda2 /     20G
-	/dev/sda3 swap  $RAM_AMOUNT 
-	/dev/sda4 /home $REMAINING_SPACE
 
 mkfs.vfat -F 32 /dev/sda1
 mkfs.ext4 /dev/sda2
-mkwap /dev/sda3
-mkfs.ext4 /dev/sda4
 
 mount /dev/sda2 /mnt
 mkdir /mnt/boot
-mkdir /mnt/home
 mount /dev/sda1 /mnt/boot
-mount /dev/sda4 /mnt/home
 
 ------- Actual install
 
@@ -35,9 +29,9 @@ genfstab -U /mnt >> /mnt/etc/fstab
 
 arch-chroot /mnt /bin/zsh
 
-echo en_US.UTF-8 > /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
 echo LANG=en_US.UTF-8 > /etc/locale.conf
-ln -s /usr/share/zoneinfo/Europe/Berlin /etc/localtime
+ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 
 echo arch > /etc/hostname
 
