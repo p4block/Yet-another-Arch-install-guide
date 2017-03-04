@@ -52,7 +52,7 @@ systemctl enable gdm
 refind-install 
 
 ------- Kernel cmdline
-Basically edit your boot options to be 'root=/dev/sda2', as sometimes rEFInd doesn't make this automatically
+Basically edit your boot options to be 'rw root=/dev/sda2', as sometimes rEFInd doesn't make this automatically
 
 nano /boot/refind_linux.conf 
 
