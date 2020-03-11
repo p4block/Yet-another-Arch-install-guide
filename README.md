@@ -2,6 +2,9 @@ Let's start.
 
 This assumes your target disk is /dev/sda, you are running UEFI, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
 
+Check out the real guide at 
+https://wiki.fosc.space/Archguide
+
 ------- Partitioning
 
 `cgdisk /dev/sda`
