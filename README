@@ -1,6 +1,6 @@
 Let's start. 
 
-This assumes your target disk is /dev/sda, you are running UEFI, you want rEFInd because it's cool, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
+This assumes your target disk is /dev/sda, you are running UEFI, you are wired into ethernet for the install process, you use US keyboard, and mostly understand english
 
 ------- Partitioning
 
@@ -19,8 +19,7 @@ mount /dev/sda1 /mnt/boot
 ------- Actual install
 Install all packages needed (add what you need!)
 
-pacstrap -i /mnt base base-devel refind-efi xorg-server gnome gnome-extra firefox networkmanager htop zsh grml-zsh-config
-
+pacstrap /mnt base base-devel linux linux-firmware f2fs-tools nano xorg-server gnome gnome-extra firefox networkmanager htop zsh grml-zsh-config
 genfstab -U /mnt >> /mnt/etc/fstab 
 
 ------- Get in there to configure
@@ -42,17 +41,21 @@ passwd user
 
 ------- Enable services
 
-systemctl enable NetworkManager
-systemctl enable gdm
+systemctl enable NetworkManager gdm
 
 ------- Bootloader
 
-refind-install 
+bootctl install
 
 ------- Kernel cmdline
-Basically edit your boot options to be 'rw root=/dev/sda2', as sometimes rEFInd doesn't make this automatically
+nano /boot/loader/entries/arch.conf
 
-nano /boot/refind_linux.conf 
+```
+title   Arch Linux
+linux   /vmlinuz-linux
+initrd  /initramfs-linux.img
+options root=/dev/sda2 rw
+```
 
 ------- Git out
 
